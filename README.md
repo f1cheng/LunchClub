@@ -1,4 +1,12 @@
 
+2015-6-14:
+add the FileDB, for writting to file and loading from file.
+
+Remain:
+to improve the class relation more clean.
+using the MVC: controller to refer Model and View.
+
+
 2015-6-7
 FileDB
 UML added.
