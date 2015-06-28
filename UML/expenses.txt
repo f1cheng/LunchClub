@@ -1,10 +1,2 @@
-1111,5.0,Expense,Sun Jun 14 17:29:56 CST 2015
-Zhang Long,1.0,Expense,Sun Jun 14 17:38:08 CST 2015
-En Qi,1.0,Expense,Sun Jun 14 17:44:01 CST 2015
-1111,44.0,Expense,Sun Jun 14 18:43:14 CST 2015
-Zhang Long,100.0,Expense,Sun Jun 14 18:44:04 CST 2015
-Zhu FangFei,107.0,Expense,Sun Jun 14 18:44:04 CST 2015
-f2,1.0,Expense,Sun Jun 14 18:45:51 CST 2015
-f3,1.0,Expense,Sun Jun 14 18:45:51 CST 2015
-f1,20.0,Expense,Sun Jun 14 18:48:12 CST 2015
-f2,19.0,Expense,Sun Jun 14 18:48:12 CST 2015
+f1,11.0,Expense,Sun Jun 28 14:59:54 CST 2015
+f2,11.0,Expense,Sun Jun 28 14:59:54 CST 2015

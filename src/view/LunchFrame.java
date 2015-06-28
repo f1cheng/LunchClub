@@ -1,7 +1,6 @@
 package view;
 
-import controls.Controller;
-import main.LunchMain;
+
 import models.TransactionRecord;
 
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import java.awt.List;
 
 
 
-
 //import javax.swing.table.DefaultTableModel;
 import javax.swing.table.*;
 import javax.swing.JLabel;
@@ -55,15 +53,18 @@ import javax.swing.JButton;
 
 import models.Account;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class LunchFrame extends JFrame {
 
 	//private Controller control;
-	public LunchMain lunch;
 	public JPanel contentPane;
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem menuItem;
-	private JMenuItem menuItem_1;
+	private JMenuItem menuItemRecharge;
+	private JMenuItem menuItemJoin;
+	private JMenuItem menuItemExpense;
 	public JTable table = new JTable();
 	public JTable table_1 = new JTable();
 	public JScrollPane scrollPane;
@@ -77,37 +78,33 @@ public class LunchFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LunchFrame(LunchMain lunch) {
-		this.lunch = lunch;
+	public LunchFrame() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 673, 475);
 		setTitle("LunchClub");
 		
 		String str = "ChengFeiStrtest";
 		account = new Account(str, 100);
-		lunch.control = new Controller(lunch);
 		
 		JMenuBar menuBar = new JMenuBar();
 		
 		menu = new JMenu("Accounts");
-        menuItem = new JMenuItem("Join");
-        menuItem.addActionListener(lunch.control);
-		menu.add(menuItem);
+		menuItemJoin = new JMenuItem("Join");
+		menu.add(menuItemJoin);
 		menuBar.add( menu );
 		
 		menu = new JMenu("Transaction");
-        menuItem_1 = new JMenuItem("Expense");
+		menuItemExpense = new JMenuItem("Expense");
         
-        menuItem_1.addActionListener(lunch.control);
-        
-        menuItem_1.setSelected(true);
-		menu.add(menuItem_1);
-        menuItem = new JMenuItem("Recharging");
-        menuItem.addActionListener(lunch.control);
-		menu.add(menuItem);
+		//menuItemExpense.setSelected(true);
+		menu.add(menuItemExpense);
 		
-		menuBar.add( menu );	
-		this.setJMenuBar( menuBar);
+		menuItemRecharge = new JMenuItem("Recharging");
+		menu.add(menuItemRecharge);
+		
+		menuBar.add(menu);	
+		this.setJMenuBar(menuBar);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -174,16 +171,6 @@ public class LunchFrame extends JFrame {
 			}
 		));
 		
-		/*
-		DefaultTableModel tableModel2 = (DefaultTableModel)(table_1.getModel());
-		
-		tableModel2.addRow(new Object[]{"sitinspring", "35"});
-		tableModel2.addRow(new Object[]{"sitinspring", "352"});
-		tableModel2.addRow(new Object[]{"sitinspring", "353"});
-		
-		String a = tableModel2.getValueAt(0, 0).toString();
-		System.out.println(a);
-		*/
 		table_1.validate();
 		
 		table_1.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -204,26 +191,190 @@ public class LunchFrame extends JFrame {
 		btnNewButton = new JButton("Join Lunch");
 		btnNewButton.setBounds(419, 31, 209, 34);
 		contentPane.add(btnNewButton);
-		btnNewButton.addActionListener(lunch.control);
+
 		
 	}
-	
-	
-	public void showAccountsToTable(Map<String, Account> accountss)
-	{
-		DefaultTableModel outputModel = (DefaultTableModel)(lunch.frame.table.getModel());
 
+	
+	public void showTotalBalance(double totalBalance)
+	{
+		textField.setText(String.valueOf(totalBalance));
+	}
+
+	public void updateButtonText(String str)
+	{
+		btnNewButton.setText(str);
+	}
+	
+	public void addActionListenerButton(ActionListener e)
+	{
+		btnNewButton.addActionListener(e);
+	}
+
+	
+	
+	public void addActionListenerJoinMenu(ActionListener e)
+	{
+		menuItemJoin.addActionListener(e);
+	}
+
+	public void addActionListenerExpenseMenu(ActionListener e)
+	{
+		menuItemExpense.addActionListener(e);
+	}
+
+	public void addActionListenerRechargeMenu(ActionListener e)
+	{
+		menuItemRecharge.addActionListener(e);
+	}
+
+	
+
+	/* table for view */
+	
+	public void showAccountsToViewTable(Map<String, Account> accountss)
+	{
+		DefaultTableModel outputModel = (DefaultTableModel)(table.getModel());
+		outputModel.setRowCount(0);
 		for (Map.Entry<String, Account> entry : accountss.entrySet())
 		{
-			outputModel.addRow(new Object[]{entry.getValue().getName(), entry.getValue().getBalance(), entry.getValue().getTotalRecharge(), entry.getValue().getTotalExpense()});
+			outputModel.addRow(new Object[] {
+					                          entry.getValue().getName(), 
+					                          entry.getValue().getBalance(), 
+					                          entry.getValue().getTotalRecharge(), 
+					                          entry.getValue().getTotalExpense()
+					                         }
+			                   );
 		}
 
 	}	
 
+	public void showAccountsToInputTable(Map<String, Account> accountss)
+	{
+		DefaultTableModel outputModel = (DefaultTableModel)(table_1.getModel());
+		outputModel.setRowCount(0);
+		for (Map.Entry<String, Account> entry : accountss.entrySet())
+		{
+			outputModel.addRow(new Object[] {
+					                          entry.getValue().getName(), 
+					                          0
+					                         }
+			                   );
+		}
+
+	}	
+
+	
+	public  Map<String, Account> extractAccountsFromInputTable()
+	{
+		Map<String, Account> accMap = new HashMap<String, Account>();
+		Account account;
+		double amount = 0;
+		
+		DefaultTableModel tableModel3 = (DefaultTableModel)(table_1.getModel());
+		int rowCount = tableModel3.getRowCount();
+
+		System.out.println(rowCount);
+
+		
+		for(int i = 0; i < rowCount; i++)
+		{
+			if (tableModel3.getValueAt(i,0).toString().equals(null) || 
+			    tableModel3.getValueAt(i,0).toString().equals(""))
+			{
+				System.out.println("continue="+i);
+				continue;
+			}
+			
+			if (!tableModel3.getValueAt(i, 1).toString().equals(""))
+			{
+				amount = Double.valueOf(tableModel3.getValueAt(i, 1).toString());
+			}
+			
+			account = new Account(tableModel3.getValueAt(i, 0).toString(), amount);
+			accMap.put(account.getName(), account);
+			
+			System.out.println("fill account"+i);
+		}
+		
+		
+		System.out.println("fill account end");
+		
+		return accMap;
+		
+	}
 
 
 	
+	
 
+
+	public ArrayList<TransactionRecord> extractTransactionRecFromInputTable(String transactionType)
+	{
+		ArrayList<TransactionRecord> recs = new ArrayList<TransactionRecord>();
+		double amount;
+		DefaultTableModel tableModel3 = (DefaultTableModel)(table_1.getModel());
+		int rowCount = tableModel3.getRowCount();
+
+		System.out.println(rowCount);
+		
+		int j = 0;
+		for(int i=0; i<rowCount; i++)
+		{
+
+			if (tableModel3.getValueAt(i, 1).toString().length() == 0)
+				amount = 0;
+			else 
+				amount = Double.valueOf(tableModel3.getValueAt(i, 1).toString());
+
+			if (amount != 0)
+			{
+			    recs.add(j, new TransactionRecord(tableModel3.getValueAt(i, 0).toString(), amount, transactionType));
+			    System.out.println("fill"+j);
+			    j++;
+			}
+			System.out.println(i);
+		}
+		
+		System.out.println("fillrecEnd");
+		
+		return recs;
+		
+	}
+	
+	
+	public void setInputTableForJoin()
+	{
+		
+		table_1.setModel(new DefaultTableModel(
+				new Object[][] {
+					{"", ""},
+					{"", ""},
+					{"", ""},
+					{"", ""},
+					{"", ""},
+					{"", ""},
+				},
+				new String[] {
+					"Name", "Amount"
+				}
+			));
+		//table_1.validate();
+	}
+	
+	// later for use
+	public void showTransactionRecsToTable(ArrayList<TransactionRecord> recs)
+	{
+		DefaultTableModel outputModel = (DefaultTableModel)(table.getModel());
+		int rowCount = recs.size();
+
+		for(int i=0; i<rowCount; i++)
+		{
+		    outputModel.addRow(new Object[]{recs.get(i).getAccountName(), recs.get(i).getTransactionAmount()});
+		}
+		
+	}	
+	
 	
 	
 	
