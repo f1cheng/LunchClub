@@ -80,35 +80,7 @@ public class Control {
 	}
 	
 	public class ActionListenerButton implements ActionListener
-	{
-
-		public TransactionOperation makeTrans(Map<String, Account> accs, String tranType)
-		{
-
-        	TransactionOperation transOperation;
-        	ArrayList<TransactionRecord> tranRecs;
-        	
-        	System.out.println(tranType);
-        	tranRecs = view.extractTransactionRecFromInputTable(tranType);
-        	/*
-        	 * TransactionFactory.makeTransaction(accs, tranRecs, tranType);
-        	 * 
-        	 * */
-        	if (tranType.equals("Expense"))
-        	{
-        	    transOperation = new ExpenseTransaction(accs, tranRecs);
-        	}
-        	else
-        	{
-        		System.out.println("rrrrr");
-        		transOperation = new RechargeTransaction(accs, tranRecs);
-        	}
-        	
-        	transOperation.updateBalance();
-        	
-        	return transOperation;
-		}
-		
+	{		
 		public void actionPerformed(ActionEvent e) 
 		{
 
@@ -135,9 +107,7 @@ public class Control {
 	        	String tranType = "Expense";
 	        	tranRecs = view.extractTransactionRecFromInputTable(tranType);
 	        	TransactionOperation transOperation = TransactionFactory.makeTransaction(accPool.getAccounts(), tranRecs, tranType);
-	        	 
-	        	
-	        	//TransactionOperation transOperation = makeTrans(accPool.getAccounts(), "Expense");
+
 	        	accPool.appendAccounts(transOperation.getAccounts());
 	        	
 	        	view.showAccountsToViewTable(accPool.getAccounts());
@@ -157,8 +127,7 @@ public class Control {
 	        	String tranType = "Recharge";
 	        	tranRecs = view.extractTransactionRecFromInputTable(tranType);
 	        	TransactionOperation transOperation = TransactionFactory.makeTransaction(accPool.getAccounts(), tranRecs, tranType);
-	        	
-	        	//TransactionOperation transOperation = makeTrans(accPool.getAccounts(), "Recharge");
+
 	        	accPool.appendAccounts(transOperation.getAccounts());
 	        	
 	        	view.showAccountsToViewTable(accPool.getAccounts());
