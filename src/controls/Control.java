@@ -90,6 +90,10 @@ public class Control {
         	
         	System.out.println(tranType);
         	tranRecs = view.extractTransactionRecFromInputTable(tranType);
+        	/*
+        	 * TransactionFactory.makeTransaction(accs, tranRecs, tranType);
+        	 * 
+        	 * */
         	if (tranType.equals("Expense"))
         	{
         	    transOperation = new ExpenseTransaction(accs, tranRecs);
@@ -126,9 +130,14 @@ public class Control {
 	        else if (e.getActionCommand().equals("Add Expense"))
 	        {
 	        	System.out.println("Action for: Add Expense");
+
+	        	ArrayList<TransactionRecord> tranRecs;
+	        	String tranType = "Expense";
+	        	tranRecs = view.extractTransactionRecFromInputTable(tranType);
+	        	TransactionOperation transOperation = TransactionFactory.makeTransaction(accPool.getAccounts(), tranRecs, tranType);
+	        	 
 	        	
-	        	
-	        	TransactionOperation transOperation = makeTrans(accPool.getAccounts(), "Expense");
+	        	//TransactionOperation transOperation = makeTrans(accPool.getAccounts(), "Expense");
 	        	accPool.appendAccounts(transOperation.getAccounts());
 	        	
 	        	view.showAccountsToViewTable(accPool.getAccounts());
@@ -143,7 +152,13 @@ public class Control {
 	        else if (e.getActionCommand().equals("Add Recharging"))
 	        {
 	        	System.out.println("Action for: Add Recharging");
-	        	TransactionOperation transOperation = makeTrans(accPool.getAccounts(), "Recharge");
+	        	
+	        	ArrayList<TransactionRecord> tranRecs;
+	        	String tranType = "Recharge";
+	        	tranRecs = view.extractTransactionRecFromInputTable(tranType);
+	        	TransactionOperation transOperation = TransactionFactory.makeTransaction(accPool.getAccounts(), tranRecs, tranType);
+	        	
+	        	//TransactionOperation transOperation = makeTrans(accPool.getAccounts(), "Recharge");
 	        	accPool.appendAccounts(transOperation.getAccounts());
 	        	
 	        	view.showAccountsToViewTable(accPool.getAccounts());

@@ -147,7 +147,7 @@ public class LunchFrame extends JFrame {
 		textField.setBounds(117, 31, 110, 34);
 		textField.setEditable(false);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setText("900");
+		textField.setText("0");
 		textField.setColumns(10);
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(419, 65, 209, 340);

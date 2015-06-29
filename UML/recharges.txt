@@ -1,3 +1,6 @@
 f1,1.0,Recharge,Mon Jun 29 22:20:59 CST 2015
 f2,10.0,Recharge,Mon Jun 29 22:20:59 CST 2015
 f3,100.0,Recharge,Mon Jun 29 22:20:59 CST 2015
+f1,90.0,Recharge,Mon Jun 29 23:01:37 CST 2015
+f4,100.0,Recharge,Mon Jun 29 23:01:37 CST 2015
+f5,100.0,Recharge,Mon Jun 29 23:01:37 CST 2015

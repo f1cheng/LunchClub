@@ -43,13 +43,10 @@ public class FileDB {
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            e.printStackTrace();
 		}
 		
-		
-		
-		//accountFile = new File(accsFileName);
-		//loadAccountsFromFile();
+	
 	}
 	
 	public void loadAccountsFromFile()
