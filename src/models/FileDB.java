@@ -17,6 +17,37 @@ public class FileDB {
 	
 	public FileDB()
 	{
+		File file;
+		try 
+		{
+		    file = new File(accsFileName);
+		    if (!file.exists())
+		    {
+			    file.createNewFile();
+			    System.out.println("create " + accsFileName);
+		    }
+		    
+		    file = new File(rechargeFileName);
+		    if (!file.exists())
+		    {
+			    file.createNewFile();
+			    System.out.println("create " + rechargeFileName);
+		    }
+		    
+		    file = new File(expenseFileName);
+		    if (!file.exists())
+		    {
+			    file.createNewFile();
+			    System.out.println("create " + expenseFileName);
+		    }
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		
 		//accountFile = new File(accsFileName);
 		//loadAccountsFromFile();
 	}
@@ -100,7 +131,9 @@ public class FileDB {
 		}
 		catch (FileNotFoundException ex) 
 		{
+			 System.out.println("writeTransRectoFile not found"+accsFileName);
             ex.printStackTrace();
+            System.out.println("writeTransRectoFile not found2"+accsFileName);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

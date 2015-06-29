@@ -1,2 +1,3 @@
-f1,11.0,Expense,Sun Jun 28 14:59:54 CST 2015
-f2,11.0,Expense,Sun Jun 28 14:59:54 CST 2015
+f1,1.0,Expense,Mon Jun 29 22:20:32 CST 2015
+f2,10.0,Expense,Mon Jun 29 22:20:32 CST 2015
+f3,100.0,Expense,Mon Jun 29 22:20:32 CST 2015
